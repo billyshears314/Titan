@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/board.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.css' />
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+<div class="container">
+
+	<div class="row">	
+	
+		<div class="col-md-8">
+		
+			<% include board %>
+		
+		<!--column-->
+		</div>
+		
+		<div class="col-md-4" style="margin-top:100px">
+
+		<% include tabs %>
+                                                                                                 
+		</div>
+	<!--row-->
+	</div>
+	
+	<!--container-->
+</div>
+
+	<% include modal %>
+
+  </body>
+   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+   <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="javascripts/creatures.js"></script>  
+	<script src="socket.io/socket.io.js"></script>
+   <script src="javascripts/socket.js"></script>
+   <script src="javascripts/angular.js"></script>
+   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+	<script src="javascripts/dragdrop.js"></script>   
+   <script src="javascripts/bootstrap.js"></script>
+   <script src="javascripts/miscellaneous.js"></script>
+
+</html>
