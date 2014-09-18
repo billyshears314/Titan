@@ -56,8 +56,9 @@ var nextNumber = 1;
 
 	numberOfConnections++;
 	socket.emit('getBoardModel', titan.getBoard());	
+	console.log("TEST");
    socket.emit('getPlayerNumber', nextNumber);
-   
+   console.log("HMMM");
    var turn_phase = {"turn": turn, "phase": phase};	
    socket.emit('getPhase', turn_phase);
 	nextNumber++;

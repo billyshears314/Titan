@@ -17,6 +17,9 @@
 			<button type="button" id="confirm_button" class="btn btn-success" style="position:absolute;top:220px; left:0px">Confirm</button>
 			<button type="button" id="concede_button" class="btn btn-danger" style="position:absolute;top:260px; left:0px">Concede Battle</button>
 			
+			<button type="button" id="reset" class="btn btn-primary" style="position:absolute;top:120px; left:635px">Reset</button>
+			<button type="button" id="undo" class="btn btn-primary" style="position:absolute;top:160px; left:635px">Undo</button>			
+			
 			<span id="whosmove" style="position:absolute;top:100px;left:0px;font-size:20px"></span>
 			<span style="position:absolute;top:130px;left:0px;font-size:17px">Turn: <img id="arrow" src="images/black_arrow.png" style="width:18px; height:18px"></img>{{turn}}</span>
 			<span style="position:absolute;top:160px;left:0px;font-size:17px">{{phase}} Phase</span>				
@@ -32,7 +35,7 @@
 						<span class="glyphicon glyphicon-plus"></span>
 					</button>
 				
-					<img id="defendWaitingImage<%=i%>" class="waitingImage" src="images/TitanImages/{{defendwaiting[<%=i%>].name}}.jpg" width=78 height=78 style="position:absolute;top:0px;left:0px;z-index:2"></img>
+					<img id="attackWaitingImage<%=i%>" class="waitingImage" src="images/TitanImages/{{attackerarmy[<%=i%>].name}}.jpg" width=78 height=78 style="position:absolute;top:0px;left:0px;z-index:2"></img>
 					
 				</div>
 					
@@ -129,15 +132,51 @@
 						<span class="glyphicon glyphicon-plus"></span>
 					</button>
 				
-					<img id="attackWaitingImage<%=i%>" class="waitingImage" src="images/TitanImages/{{attackwaiting[<%=i%>].name}}.jpg" width=78 height=78 style="position:absolute;top:0px;left:0px;z-index:2"></img>
+					<img id="attackWaitingImage<%=i%>" class="waitingImage" src="images/TitanImages/{{attackerarmy[<%=i%>].name}}.jpg" width=78 height=78 style="position:absolute;top:0px;left:0px;z-index:2"></img>
 					
 				</div>
 				
 				<% } %>				
 				
 				</div>
+		
+					<div style="position:absolute;top:180px">
+					
+							<div class="col-md-6">				
+							<h5>Spaces</h5>
+							<ul>
+			  					<li ng-repeat="s in space">
+			   		 		<b>{{s.id}}:</b> {{s.name + ', '+ s.army.allegiance +', ' + s.army.index + ', ' + s.blood + ', ' + s.player }}
+			 		   		</li>
+							</ul>
+							
+							</div>	
+						
+							<div class="col-md-6">				
+							<h5>Attacker Army</h5>
+							<ul>
+			  					<li ng-repeat="a in attackerarmy">
+			   		 		{{a.name + ', ' + a.startinglocation + ', ' + a.canMove + ', ' + a.location }}
+			 		   		</li>
+							</ul>
+							
+							</div>
+							
+							<div class="col-md-6">				
+							<h5>Defender Army</h5>
+							<ul>
+			  					<li ng-repeat="d in defenderarmy">
+			   		 		{{d.name + ', ' + d.startinglocation + ', ' + d.canMove + ', ' + d.location }}
+			 		   		</li>
+							</ul>
+							
+							</div>				
+						
+					</div>
 				
 				</div>
+				
+
 		
 			<!--board-->
 			</div>

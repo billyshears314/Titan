@@ -29,23 +29,34 @@
 		</div>
 	<!--row-->
 	</div>
-	
+
 	<!--container-->
 </div>
 
 	<% include modal %>
 
   </body>
+
+	<!--Dependent Files-->  	
+  	<script src="socket.io/socket.io.js"></script>
    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+   
+   <!--Our Files-->
+   <script src="javascripts/initialize.js"></script>
 	<script src="javascripts/creatures.js"></script>  
-	<script src="socket.io/socket.io.js"></script>
    <script src="javascripts/socket.js"></script>
    <script src="javascripts/angular.js"></script>
-   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-	<script src="javascripts/dragdrop.js"></script>   
+
+	<script src="javascripts/dragdrop.js"></script>  
+	<script src="javascripts/movement.js"></script> 
+	<script src="javascripts/moveData.js"></script>
    <script src="javascripts/bootstrap.js"></script>
-   <script src="javascripts/miscellaneous.js"></script>
+   <script src="javascripts/addCreatureController.js"></script>
+   <script src="javascripts/chatsocket.js"></script>
+   <script src="javascripts/phasesocket.js"></script>
+  
 
 </html>

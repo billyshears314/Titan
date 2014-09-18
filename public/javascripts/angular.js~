@@ -5,15 +5,10 @@ function creaturesOnBoardController($scope) {
 	 $scope.turn = "1";
 
     $scope.space= [];
-    $scope.attackwaiting = [];
-    $scope.defendwaiting = [];
     $scope.attackerarmy = [];
     $scope.defenderarmy = [];
 
 var space = $scope.space;
-
-var attackwaiting = $scope.attackwaiting;
-var defendwaiting = $scope.defendwaiting;
 
 var attackerarmy = $scope.attackerarmy;
 var defenderarmy = $scope.defenderarmy;
@@ -46,37 +41,22 @@ space[24] = {"id": 25, "army": {"allegiance": "none", "index": -1}, "name": "emp
 space[25] = {"id": 26,"army": {"allegiance": "none", "index": -1},  "name": "empty", "blood": 0,  "player": "0", "neighbors": [20, 21, 24, 26]};
 space[26] = {"id": 27, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0,  "player": "0", "neighbors": [21, 22, 25]};
 
-attackwaiting[0] = {"name": "empty"};
-attackwaiting[1] = {"name": "empty"};
-attackwaiting[2] = {"name": "empty"};
-attackwaiting[3] = {"name": "empty"};
-attackwaiting[4] = {"name": "empty"};
-attackwaiting[5] = {"name": "empty"};
-attackwaiting[6] = {"name": "empty"};
 
-defendwaiting[0] = {"name": "empty"};
-defendwaiting[1] = {"name": "empty"};
-defendwaiting[2] = {"name": "empty"};
-defendwaiting[3] = {"name": "empty"};
-defendwaiting[4] = {"name": "empty"};
-defendwaiting[5] = {"name": "empty"};
-defendwaiting[6] = {"name": "empty"};
+attackerarmy[0] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
+attackerarmy[1] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
+attackerarmy[2] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
+attackerarmy[3] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
+attackerarmy[4] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
+attackerarmy[5] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
+attackerarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
 
-attackerarmy[0] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-attackerarmy[1] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-attackerarmy[2] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-attackerarmy[3] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-attackerarmy[4] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-attackerarmy[5] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-attackerarmy[6] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-
-defenderarmy[0] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-defenderarmy[1] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-defenderarmy[2] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-defenderarmy[3] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-defenderarmy[4] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-defenderarmy[5] = {"startinglocation": "-1", "canMove": 1, "location": -1};
-defenderarmy[6] = {"startinglocation": "-1", "canMove": 1, "location": -1};
+defenderarmy[0] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
+defenderarmy[1] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
+defenderarmy[2] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
+defenderarmy[3] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
+defenderarmy[4] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
+defenderarmy[5] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
+defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
 
 
 
@@ -96,14 +76,15 @@ $scope.updateModel = function(updatedBoard){
 	
 $scope.updateWaitingArmies = function(data){
 	
-	$scope.attackwaiting = data.attackwaiting;
-	$scope.defendwaiting = data.defendwaiting;
+	$scope.attackerarmy = data.attackerarmy;
+	$scope.defenderarmy = data.defenderarmy;
 		$scope.$apply(function(){
 		for(var i=0; i<7; i++){	
-			if($scope.attackwaiting[i].name!='empty'){	
+		console.log("OKAY");
+			if($scope.attackerarmy[i].name!='empty'){	
 					$('#attackWaitingImage'+i).show();
 			}
-			if($scope.defendwaiting[i].name!='empty'){	
+			if($scope.defenderarmy[i].name!='empty'){	
 					$('#defendWaitingImage'+i).show();
 			$('#defendWaitingImage'+i).css('-webkit-transform', 'rotate(180deg)');
 			$('#defendWaitingImage'+i).css('-moz-transform', 'rotate(180deg)');    
@@ -124,8 +105,6 @@ $scope.updateWaitingArmies = function(data){
  
     for(var i=0; i<27; i++){
     	
- 
-    	
     	if(newVal[i].player=="1"){
     		
 			$('#creature'+i).css('-webkit-transform', 'rotate(180deg)');
@@ -145,25 +124,45 @@ $scope.updateWaitingArmies = function(data){
 			$('#creature'+i).css('transform', 'rotate(0deg)');
     		}
     	
-		console.log(JSON.stringify(space));    	
+		//console.log(JSON.stringify(space));    	
     	
     	if(newVal[i].name!='empty'){
     		
-			console.log('Before');
-			console.log('Blood: ' + newVal[i].blood);
-			console.log('Skill Power: ' + creatures[newVal[i].name].skillPower);
+		//	console.log('Before');
+		//	console.log('Blood: ' + newVal[i].blood);
+		//	console.log('Skill Power: ' + creatures[newVal[i].name].skillPower);
     		
+    			/*TODO: Also must check if creature has retaliated yet, should be another field*/
 		   	if(newVal[i].blood>=creatures[newVal[i].name].skillPower){	   	
 		   			console.log("DEAD");	
-		   			space[i].name='empty';
-		   			space[i].blood=0;
-		   			space[i].player='0';
-		   			space[i].army.allegiance='none';
-		   			space[i].index=-1;
+		   			console.log("I: " + i);
+		   			$scope.space[i].name='empty';
+		   			$scope.space[i].blood=0;
+		   			$scope.space[i].player='0';
+		   			var allegiance = $scope.space[i].army.allegiance;
+		   			$scope.space[i].army.allegiance='none';
+		   		
+		   			
+		   			if(allegiance==='defender'){
+		   				$scope.defenderarmy[$scope.space[i].army.index].location = -1;
+		   				$scope.defenderarmy[$scope.space[i].army.index].startinglocation = -1;
+		   				$scope.defenderarmy[$scope.space[i].army.index].canMove = 1;
+		   			}
+		   			else if(allegiance==='attacker'){
+		   				$scope.attackerarmy[$scope.space[i].army.index].location = -1;
+		   				$scope.attackerarmy[$scope.space[i].army.index].startinglocation = -1;
+		   				$scope.attackerarmy[$scope.space[i].army.index].canMove = 1;
+		   			}
+		   			
+		   			else {
+							console.log("ERROR: allegiance wasn't defined");		   				
+		   				}
+		   				$scope.space[i].army.index=-1;	
 		   		}  		
-    		
-    		$('#creature'+i).show();
-			$('#blood'+i).show();   	
+    				else{
+    				$('#creature'+i).show();
+					$('#blood'+i).show();   	
+					}
 			if(newVal[i].player=="1"){
 				$('#blood'+i).css('left', 60);
 				$('#blood'+i).css('top', 50);				
@@ -184,14 +183,14 @@ $scope.updateWaitingArmies = function(data){
     for(var i=0; i<7; i++){
     	
 		if($scope.playerNumber===1){
-			$('#creature'+newVal[i].location).draggable("disable");   
+		//	$('#creature'+newVal[i].location).draggable("disable");   
 			
 			}   
 			else{ 	
     	
     	
     	if(newVal[i].canMove===0){
-			$('#creature'+newVal[i].location).draggable("disable");    		
+		//	$('#creature'+newVal[i].location).draggable("disable");    		
     		}
     	else{
     		$('#creature'+newVal[i].location).draggable("enable"); 
@@ -216,7 +215,7 @@ $scope.updateWaitingArmies = function(data){
     	
     	
     	if(newVal[i].canMove===0){
-		$('#creature'+newVal[i].location).draggable("disable");    		
+			$('#creature'+newVal[i].location).draggable("disable");    		
     		}
     	else{
     		$('#creature'+newVal[i].location).draggable("enable"); 
@@ -228,31 +227,5 @@ $scope.updateWaitingArmies = function(data){
     
 }, true);
 
- 
 }
 
-var creatures = [];
-
-creatures[0] = {"name": "gargoyle", "skillPower": 4, "skillFactor": 3};
-creatures[1] = {"name": "cyclops", "skillPower": 9, "skillFactor": 2};
-creatures[2] = {"name": "gorgon", "skillPower": 6, "skillFactor": 3};
-creatures[3] = {"name": "behemoth", "skillPower": 8, "skillFactor": 3};
-creatures[4] = {"name": "serpent", "skillPower": 18, "skillFactor": 2};
-
-creatures[5] = {"name": "ogre", "skillPower": 6, "skillFactor": 2};
-creatures[6] = {"name": "troll", "skillPower": 8, "skillFactor": 2};
-creatures[7] = {"name": "ranger", "skillPower": 4, "skillFactor": 4};
-creatures[8] = {"name": "centaur", "skillPower": 3, "skillFactor": 4};
-creatures[9] = {"name": "lion", "skillPower": 5, "skillFactor": 3};
-creatures[10] = {"name": "warbear", "skillPower": 6, "skillFactor": 3};
-creatures[11] = {"name": "minotaur", "skillPower": 4, "skillFactor": 4};
-creatures[12] = {"name": "unicorn", "skillPower": 6, "skillFactor": 4};
-creatures[13] = {"name": "wyvern", "skillPower": 7, "skillFactor": 3};
-creatures[14] = {"name": "griffon", "skillPower": 5, "skillFactor": 4};
-creatures[15] = {"name": "hydra", "skillPower": 10, "skillFactor": 3};
-
-creatures[16] = {"name": "dragon", "skillPower": 9, "skillFactor": 3};
-creatures[17] = {"name": "giant", "skillPower": 7, "skillFactor": 4};
-creatures[18] = {"name": "colossus", "skillPower": 10, "skillFactor": 4};
-creatures[19] = {"name": "guardian", "skillPower": 12, "skillFactor": 2};
-creatures[20] = {"name": "warlock", "skillPower": 5, "skillFactor": 4};
