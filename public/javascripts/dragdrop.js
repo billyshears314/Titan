@@ -94,15 +94,16 @@ console.log("DROP");
 	drop_space_number = getID($(this), 'targetArea');
 	
 	 var scope = angular.element($("#board")).scope();
+	 
     scope.$apply(function(){
-      scope.space[drop_space_number].name = imageSrc.substring(19, imageSrc.length - 4);
+    	scope.space[drop_space_number].name = imageSrc.substring(19, imageSrc.length - 4);
     })
 
-//THERE'S A MORE EFFICIENT WAY THAN TO EMIT DATA USUALLY TWICE
+	//THERE'S A MORE EFFICIENT WAY THAN TO EMIT DATA USUALLY TWICE
 	 var socket = io.connect('http://localhost:8080'); 
     socket.emit('updateBoard', {data: scope.space});   
 
-}
+	}
 });
 	
 	
@@ -119,46 +120,48 @@ function highlightMoveOptions(){
 
 
 function unhighlightSpaces(){
-		for(var i=0; i<27; i++){
-			$('#id'+i).css('color', '#66CC66');		
-		}
+	for(var i=0; i<27; i++){
+		$('#id'+i).css('color', '#66CC66');		
 	}
+}
 	
 function highlightAvailableMoves(availableSpaces){	
-		for(var i=0; i<availableSpaces.length; i++){
-			$('#id'+availableSpaces[i]).css('color', '#006600');		
-		}	
+	for(var i=0; i<availableSpaces.length; i++){
+		$('#id'+availableSpaces[i]).css('color', '#006600');		
+	}	
 	
-	}
+}
 	
 function setArmyAsMoved(scope){
 	
-		if(attackerOrDefender==="attack"){	     	 	
-			scope.attackerarmy[scope.space[drop_space_number].army.index].canMove = 0;  
-			scope.attackerarmy[scope.space[drop_space_number].army.index].location = drop_space_number;   	
+	if(attackerOrDefender==="attack"){	     	 	
+		scope.attackerarmy[scope.space[drop_space_number].army.index].canMove = 0;  
+		scope.attackerarmy[scope.space[drop_space_number].army.index].location = drop_space_number;   	
 	}
 	else{
-			scope.defenderarmy[scope.space[drop_space_number].army.index].canMove = 0;  
-			scope.defenderarmy[scope.space[drop_space_number].army.index].location = drop_space_number;       
-		}
+		scope.defenderarmy[scope.space[drop_space_number].army.index].canMove = 0;  
+		scope.defenderarmy[scope.space[drop_space_number].army.index].location = drop_space_number;       
+	}
 		
 }
 
 function setSpaceArmy(scope){
-		console.log("DROP: " + drop_space_number);
-	  if(attackerOrDefender==="attack"){
-         scope.space[drop_space_number].player = 2;
-         scope.space[drop_space_number].army.allegiance= "attacker";
-         scope.attackerarmy[selectionSpot].name = "empty";
-     }
-     else if(attackerOrDefender==="defend"){
-			scope.space[drop_space_number].player = 1;  
-			scope.space[drop_space_number].army.allegiance= "defender";   	
-			scope.defenderarmy[selectionSpot].name = "empty";
-     	}
-     	scope.space[drop_space_number].army.index= selectionSpot;   
+	console.log("DROP: " + drop_space_number);
 	
-	}
+   if(attackerOrDefender==="attack"){
+      scope.space[drop_space_number].player = 2;
+      scope.space[drop_space_number].army.allegiance= "attacker";
+      scope.attackerarmy[selectionSpot].name = "empty";
+   }
+   else if(attackerOrDefender==="defend"){
+		scope.space[drop_space_number].player = 1;  
+		scope.space[drop_space_number].army.allegiance= "defender";   	
+		scope.defenderarmy[selectionSpot].name = "empty";
+  	}
+  	
+  	scope.space[drop_space_number].army.index= selectionSpot;   
+	
+}
 
 	
 /*GET JQUERY IDS*/

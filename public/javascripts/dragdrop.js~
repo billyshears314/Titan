@@ -119,64 +119,48 @@ function highlightMoveOptions(){
 
 
 function unhighlightSpaces(){
-		for(var i=0; i<27; i++){
-			$('#id'+i).css('color', '#66CC66');		
-		}
+	for(var i=0; i<27; i++){
+		$('#id'+i).css('color', '#66CC66');		
 	}
+}
 	
 function highlightAvailableMoves(availableSpaces){	
-		for(var i=0; i<availableSpaces.length; i++){
-			$('#id'+availableSpaces[i]).css('color', '#006600');		
-		}	
+	for(var i=0; i<availableSpaces.length; i++){
+		$('#id'+availableSpaces[i]).css('color', '#006600');		
+	}	
 	
-	}
+}
 	
 function setArmyAsMoved(scope){
 	
-		if(attackerOrDefender==="attack"){	     	 	
-			scope.attackerarmy[scope.space[drop_space_number].army.index].canMove = 0;  
-			scope.attackerarmy[scope.space[drop_space_number].army.index].location = drop_space_number;   	
+	if(attackerOrDefender==="attack"){	     	 	
+		scope.attackerarmy[scope.space[drop_space_number].army.index].canMove = 0;  
+		scope.attackerarmy[scope.space[drop_space_number].army.index].location = drop_space_number;   	
 	}
 	else{
-			scope.defenderarmy[scope.space[drop_space_number].army.index].canMove = 0;  
-			scope.defenderarmy[scope.space[drop_space_number].army.index].location = drop_space_number;       
-		}
+		scope.defenderarmy[scope.space[drop_space_number].army.index].canMove = 0;  
+		scope.defenderarmy[scope.space[drop_space_number].army.index].location = drop_space_number;       
+	}
 		
 }
 
-function getAvailableSpaces(scope){
-
-		if(attackerOrDefender==="defend"){
-				var availableSpaces = explore(0, creatures[scope.defenderarmy[selectionSpot].name].skillFactor-1, false);
-				availableSpaces = explore(1, creatures[scope.defenderarmy[selectionSpot].name].skillFactor-1, false);
-				availableSpaces = explore(2, creatures[scope.defenderarmy[selectionSpot].name].skillFactor-1, false);
-		}
-		else{
-				var availableSpaces = explore(23, creatures[scope.attackerarmy[selectionSpot].name].skillFactor-1, false);
-				availableSpaces = explore(24, creatures[scope.attackerarmy[selectionSpot].name].skillFactor-1, false);
-				availableSpaces = explore(25, creatures[scope.attackerarmy[selectionSpot].name].skillFactor-1, false);
-				availableSpaces = explore(26, creatures[scope.attackerarmy[selectionSpot].name].skillFactor-1, false);	
-			}		
-
-		return availableSpaces;	
-	
-	}
-
 function setSpaceArmy(scope){
-		console.log("DROP: " + drop_space_number);
-	  if(attackerOrDefender==="attack"){
-         scope.space[drop_space_number].player = 2;
-         scope.space[drop_space_number].army.allegiance= "attacker";
-         scope.attackerarmy[selectionSpot].name = "empty";
-     }
-     else if(attackerOrDefender==="defend"){
-			scope.space[drop_space_number].player = 1;  
-			scope.space[drop_space_number].army.allegiance= "defender";   	
-			scope.defenderarmy[selectionSpot].name = "empty";
-     	}
-     	scope.space[drop_space_number].army.index= selectionSpot;   
+	console.log("DROP: " + drop_space_number);
 	
-	}
+   if(attackerOrDefender==="attack"){
+      scope.space[drop_space_number].player = 2;
+      scope.space[drop_space_number].army.allegiance= "attacker";
+      scope.attackerarmy[selectionSpot].name = "empty";
+   }
+   else if(attackerOrDefender==="defend"){
+		scope.space[drop_space_number].player = 1;  
+		scope.space[drop_space_number].army.allegiance= "defender";   	
+		scope.defenderarmy[selectionSpot].name = "empty";
+  	}
+  	
+  	scope.space[drop_space_number].army.index= selectionSpot;   
+	
+}
 
 	
 /*GET JQUERY IDS*/

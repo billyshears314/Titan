@@ -8,13 +8,12 @@ function creaturesOnBoardController($scope) {
     $scope.attackerarmy = [];
     $scope.defenderarmy = [];
 
-var space = $scope.space;
-
-var attackerarmy = $scope.attackerarmy;
-var defenderarmy = $scope.defenderarmy;
+	var space = $scope.space;
+	var attackerarmy = $scope.attackerarmy;
+	var defenderarmy = $scope.defenderarmy;
     
-space[0] = {"id": 1, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0, "player": "0", "neighbors": [1, 3, 4]};
-space[1] = {"id": 2, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0, "player": "0", "neighbors": [0, 2, 4, 5]};
+space[0] = {"id": 1, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0,  "player": "0", "neighbors": [1, 3, 4]};
+space[1] = {"id": 2, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0,  "player": "0", "neighbors": [0, 2, 4, 5]};
 space[2] = {"id": 3, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0,  "player": "0", "neighbors": [1, 5, 6]};
 space[3] = {"id": 4, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0,  "player": "0", "neighbors": [0, 4, 7, 8]};
 space[4] = {"id": 5, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0,  "player": "0", "neighbors": [0, 1, 3, 5, 8, 9]};
@@ -38,7 +37,7 @@ space[21] = {"id": 22, "army": {"allegiance": "none", "index": -1}, "name": "emp
 space[22] = {"id": 23, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0,  "player": "0", "neighbors": [16, 17, 21, 26]};
 space[23] = {"id": 24, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0,  "player": "0", "neighbors": [18, 19, 24]};
 space[24] = {"id": 25, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0,  "player": "0", "neighbors": [19, 20, 23, 25]};
-space[25] = {"id": 26,"army": {"allegiance": "none", "index": -1},  "name": "empty", "blood": 0,  "player": "0", "neighbors": [20, 21, 24, 26]};
+space[25] = {"id": 26, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0,  "player": "0", "neighbors": [20, 21, 24, 26]};
 space[26] = {"id": 27, "army": {"allegiance": "none", "index": -1}, "name": "empty", "blood": 0,  "player": "0", "neighbors": [21, 22, 25]};
 
 
@@ -59,85 +58,86 @@ defenderarmy[5] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
 defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "location": -1};
 
 
+	$scope.updateModel = function(updatedBoard){
 
-$scope.updateModel = function(updatedBoard){
-
-	$scope.space = updatedBoard;
-	$scope.$apply(function(){
-		for(var i=0; i<27; i++){	
-			if($scope.space[i].name!='empty'){	
+		$scope.space = updatedBoard;
+		
+		$scope.$apply(function(){
+			
+			for(var i=0; i<27; i++){	
+				if($scope.space[i].name!='empty'){	
 					console.log($scope.space[i].name);	
 					$('#creature'+i).show();
+				}
 			}
-		}
-	});
+			
+		});
 	
 	};
 	
-$scope.updateWaitingArmies = function(data){
+	$scope.updateWaitingArmies = function(data){
 	
-	$scope.attackerarmy = data.attackerarmy;
-	$scope.defenderarmy = data.defenderarmy;
+		$scope.attackerarmy = data.attackerarmy;
+		$scope.defenderarmy = data.defenderarmy;
+	
 		$scope.$apply(function(){
-		for(var i=0; i<7; i++){	
-		console.log("OKAY");
-			if($scope.attackerarmy[i].name!='empty'){	
+		
+			for(var i=0; i<7; i++){	
+		
+				if($scope.attackerarmy[i].name!='empty'){	
 					$('#attackWaitingImage'+i).show();
-			}
-			if($scope.defenderarmy[i].name!='empty'){	
+				}
+				if($scope.defenderarmy[i].name!='empty'){	
 					$('#defendWaitingImage'+i).show();
-			$('#defendWaitingImage'+i).css('-webkit-transform', 'rotate(180deg)');
-			$('#defendWaitingImage'+i).css('-moz-transform', 'rotate(180deg)');    
-			$('#defendWaitingImage'+i).css('-ms-transform', 'rotate(180deg)');		
-			$('#defendWaitingImage'+i).css('-o-transform', 'rotate(180deg)');	
-			$('#defendWaitingImage'+i).css('transform', 'rotate(180deg)');
+					$('#defendWaitingImage'+i).css('-webkit-transform', 'rotate(180deg)');
+					$('#defendWaitingImage'+i).css('-moz-transform', 'rotate(180deg)');    
+					$('#defendWaitingImage'+i).css('-ms-transform', 'rotate(180deg)');		
+					$('#defendWaitingImage'+i).css('-o-transform', 'rotate(180deg)');	
+					$('#defendWaitingImage'+i).css('transform', 'rotate(180deg)');
+				}
+		
 			}
-		}
-	});
+		
+		});
 	
 	};
 	
-$scope.hasNoCreaturesLeft = function(){
-
-	var hasNoCreatureLeft = 'nobody';
-	var count = 0;	
+	$scope.hasNoCreaturesLeft = function(){
 	
+		var hasNoCreatureLeft = 'nobody';
+		var count = 0;	
 		
 		for(var i=0; i<$scope.attackerarmy.length; i++){
-			
+				
 			if(attackerarmy[i].location===-1){
 				count++
-				}
-			
-			}		
-			
-			if(count===attackerarmy.length){
+			}
 				
-				hasNoCreatureLeft = 'attacker';
-					
-				}
+		}		
+				
+		if(count===attackerarmy.length){			
+			hasNoCreatureLeft = 'attacker';
+		}
 			
 		count = 0;	 	
 	 	
 	 	for(var i=0; i<$scope.defenderarmy.length; i++){
 			
 			if(defenderarmy[i].location!==-1){
-				
 				hasCreatureLeft = 'defender';
-				
-				}
+			}
 			
-			}	
+		}	
 			
-			if(count===defenderarmy.length){
+		if(count===defenderarmy.length){
 		
-				if(hasNoCreatureLeft==='attacker'){
-					hasNoCreatureLeft = 'mutual';					
-					}				
-				else{
-					hasNoCreatureLeft = 'defender';
-					}
-			}			
+			if(hasNoCreatureLeft==='attacker'){
+				hasNoCreatureLeft = 'mutual';					
+			}				
+			else{
+				hasNoCreatureLeft = 'defender';
+			}
+		}			
 	
 		return hasNoCreatureLeft;	
 	
@@ -145,20 +145,16 @@ $scope.hasNoCreaturesLeft = function(){
 	
 	//Used to deal with flipping the creatures
 	$scope.$watch('space', function(newVal, oldVal){
- 
-	console.log('WATCHES FOR CHANGE IN SPACE'); 
- 
+		
     for(var i=0; i<27; i++){
     	
     	if(newVal[i].player=="1"){
-    		
 			$('#creature'+i).css('-webkit-transform', 'rotate(180deg)');
 			$('#creature'+i).css('-moz-transform', 'rotate(180deg)');    
 			$('#creature'+i).css('-ms-transform', 'rotate(180deg)');		
 			$('#creature'+i).css('-o-transform', 'rotate(180deg)');	
 			$('#creature'+i).css('transform', 'rotate(180deg)');
     		console.log("Image Flipped: " + i);
-    		
     	}
     	else{
     		//Must be a more efficient way than unflipping everything back all the time
@@ -167,7 +163,7 @@ $scope.hasNoCreaturesLeft = function(){
 			$('#creature'+i).css('-ms-transform', 'rotate(0deg)');		
 			$('#creature'+i).css('-o-transform', 'rotate(0deg)');	
 			$('#creature'+i).css('transform', 'rotate(0deg)');
-    		}
+    	}
     	
 		//console.log(JSON.stringify(space));    	
     	
@@ -177,100 +173,93 @@ $scope.hasNoCreaturesLeft = function(){
 		//	console.log('Blood: ' + newVal[i].blood);
 		//	console.log('Skill Power: ' + creatures[newVal[i].name].skillPower);
     		
-    			/*TODO: Also must check if creature has retaliated yet, should be another field*/
-		   	if(newVal[i].blood>=creatures[newVal[i].name].skillPower){	   	
-		   			console.log("DEAD");	
-		   			console.log("I: " + i);
-		   			$scope.space[i].name='empty';
-		   			$scope.space[i].blood=0;
-		   			$scope.space[i].player='0';
-		   			var allegiance = $scope.space[i].army.allegiance;
-		   			$scope.space[i].army.allegiance='none';
-		   		
-		   			
-		   			if(allegiance==='defender'){
-		   				$scope.defenderarmy[$scope.space[i].army.index].location = -1;
-		   				$scope.defenderarmy[$scope.space[i].army.index].startinglocation = -1;
-		   				$scope.defenderarmy[$scope.space[i].army.index].canMove = 0;
-		   			}
-		   			else if(allegiance==='attacker'){
-		   				$scope.attackerarmy[$scope.space[i].army.index].location = -1;
-		   				$scope.attackerarmy[$scope.space[i].army.index].startinglocation = -1;
-		   				$scope.attackerarmy[$scope.space[i].army.index].canMove = 0;
-		   			}
-		   			
-		   			else {
-							console.log("ERROR: allegiance wasn't defined");		   				
-		   				}
-		   				$scope.space[i].army.index=-1;	
-		   		}  		
-    				else{
-    				$('#creature'+i).show();
-					$('#blood'+i).show();   	
-					}
+    	/*TODO: Also must check if creature has retaliated yet, should be another field*/
+			if(newVal[i].blood>=creatures[newVal[i].name].skillPower){	   	
+		   	console.log("DEAD");	
+		   	console.log("I: " + i);
+		   	$scope.space[i].name='empty';
+		   	$scope.space[i].blood=0;
+		   	$scope.space[i].player='0';
+		   	var allegiance = $scope.space[i].army.allegiance;
+		   	$scope.space[i].army.allegiance='none';
+		   				   			
+   			if(allegiance==='defender'){
+   				$scope.defenderarmy[$scope.space[i].army.index].location = -1;
+   				$scope.defenderarmy[$scope.space[i].army.index].startinglocation = -1;
+   				$scope.defenderarmy[$scope.space[i].army.index].canMove = 0;
+   			}
+   			else if(allegiance==='attacker'){
+   				$scope.attackerarmy[$scope.space[i].army.index].location = -1;
+   				$scope.attackerarmy[$scope.space[i].army.index].startinglocation = -1;
+   				$scope.attackerarmy[$scope.space[i].army.index].canMove = 0;
+   			}		
+		   	else{
+					console.log("ERROR: allegiance wasn't defined");		   				
+		   	}
+		   	
+		   	$scope.space[i].army.index=-1;	
+		   }  		
+    		else{
+    			$('#creature'+i).show();
+				$('#blood'+i).show();   	
+			}
 			if(newVal[i].player=="1"){
-				$('#blood'+i).css('left', 60);
-				$('#blood'+i).css('top', 50);				
+					$('#blood'+i).css('left', 60);
+					$('#blood'+i).css('top', 50);				
 				}	
-    		}
+    		 }
     	else{
-    		$('#creature'+i).hide();
-   		$('#blood'+i).hide();			
+    			$('#creature'+i).hide();
+   			$('#blood'+i).hide();			
     		 }	
     	
     	}
     
-}, true);
+	}, true);
 
 
 	$scope.$watch('attackerarmy', function(newVal, oldVal){
  
-    for(var i=0; i<7; i++){
+   	for(var i=0; i<7; i++){
     	
-		if($scope.playerNumber===1){
-		//	$('#creature'+newVal[i].location).draggable("disable");   
-			
+			if($scope.playerNumber===1){
+				//	$('#creature'+newVal[i].location).draggable("disable");  
 			}   
 			else{ 	
-    	
-    	
-    	if(newVal[i].canMove===0){
-		//	$('#creature'+newVal[i].location).draggable("disable");    		
+    			if(newVal[i].canMove===0){
+					//	$('#creature'+newVal[i].location).draggable("disable");    		
+    			}
+    			else{
+    				$('#creature'+newVal[i].location).draggable("enable"); 
+    			}
     		}
-    	else{
-    		$('#creature'+newVal[i].location).draggable("enable"); 
-    		}
-    	
-    	}
-    	
-    }
     
-}, true);
+   	 //End For Loop	
+   	}
+    
+	}, true);
 
 
 	$scope.$watch('defenderarmy', function(newVal, oldVal){
  
-    for(var i=0; i<7; i++){
+   	for(var i=0; i<7; i++){
     	
-		if($scope.playerNumber===2){
-			$('#creature'+newVal[i].location).draggable("disable");   
-			
+			if($scope.playerNumber===2){
+				$('#creature'+newVal[i].location).draggable("disable");   
 			}   
 			else{ 	
-    	
-    	
-    	if(newVal[i].canMove===0){
-			$('#creature'+newVal[i].location).draggable("disable");    		
+	    		if(newVal[i].canMove===0){
+					$('#creature'+newVal[i].location).draggable("disable");    		
+	    		}
+	   	 	else{
+	    			$('#creature'+newVal[i].location).draggable("enable"); 
+	    		}
     		}
-    	else{
-    		$('#creature'+newVal[i].location).draggable("enable"); 
-    		}
     	
+    	//End for Loop
     	}
-    	
-    }
     
-}, true);
+	}, true);
 
 }
 

@@ -1,5 +1,5 @@
 //Determines where the creature can move
-	function explore(space, movement, hasMovedOne){
+function explore(space, movement, hasMovedOne){
 		
 	var scope = angular.element($("#board")).scope();
 
@@ -10,28 +10,27 @@
 		//return space;
 		for(var i=0; i<totalSpaces.length; i++){
 				
-				if(totalSpaces[i] == space){
-					notThere = false;
-					break;					
-					}		
-			}
-			if(notThere){	
-				totalSpaces.push(space);		
-			}
+			if(totalSpaces[i] == space){
+				notThere = false;
+				break;					
+			}		
+		}
+		if(notThere){	
+			totalSpaces.push(space);		
+		}
 	
 		if(movement!=0){
 		
-		for(var i=0; i<scope.space[space].neighbors.length; i++){
-	
-			explore(scope.space[space].neighbors[i], movement - 1, true);
-				
+			for(var i=0; i<scope.space[space].neighbors.length; i++){
+				explore(scope.space[space].neighbors[i], movement - 1, true);		
 			}	
 			
 		}
 		
 	}
-		return totalSpaces;	
-	}
+	
+	return totalSpaces;	
+}
 	
 	function getAvailableSpaces(scope){
 
@@ -192,8 +191,8 @@ $('#undo').click(function(){
 		
 		
 	var socket = io.connect('http://localhost:8080'); 
-    socket.emit('updateBoard', {data: scope.space});  
+   socket.emit('updateBoard', {data: scope.space});  
 	
-	});
+});
 	
 	
