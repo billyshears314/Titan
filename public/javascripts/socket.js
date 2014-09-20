@@ -23,10 +23,41 @@
     		});
     	
     	$('#confirm_button').click(function(){
+    		
+    		var scope = angular.element($("#board")).scope();
+    		
+	//	if(whosMove === "Your Action"){    		
+    		
+    		if(scope.phase==='Retaliation'){
+	
+				//Move this to end of retaliation phase later
+				console.log("BEFORE!!!!");
+				var hasNoCreaturesLeft =scope.hasNoCreaturesLeft();	
+				console.log("CREATURES LEFT: " + hasNoCreaturesLeft);
+				if(hasNoCreaturesLeft!=='nobody'){
+					alert(hasNoCreaturesLeft);
+				}	
+		
+			}
+			
+			if(scope.phase==='Setup'){
+				
+				
+				//Hide buttons to add creatures after setup phase
+				for(var i=0; i<7; i++){
+		
+				$('#defenderStartingSpot'+i).hide();
+				$('#attackerStartingSpot'+i).hide();
+				}		
+				
+			}
 
-		//	if(whosMove === "Your Action"){
-				socket.emit('confirm', {});				
+	
+				socket.emit('confirm', {});	
+							
 		//		}
+		
+		
 
 		});
 	

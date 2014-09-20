@@ -1,5 +1,7 @@
       socket.on('getPlayerNumber', function(data){
+      	
     	console.log("Get Player Number: " + data);
+    	
     	var scope = angular.element($("#board")).scope();
     	
 		if(scope.playerNumber === -1){
@@ -40,10 +42,28 @@
 				}
 				if(data.phase==='Movement'){
 					setCanMove(topOrBottom);
-					}				
+					setStartingLocationAsLocation();				
+				}				
 				
-    
     		});
+    		
+    	function setStartingLocationAsLocation(){
+    		
+    	var scope = angular.element($("#board")).scope();	
+    	
+	    	for(var i=0; i<scope.attackerarmy.length; i++){
+   	
+   			scope.$apply(function(){		
+
+					if(topOrBottom === "bottom"){
+					scope.attackerarmy[i].startinglocation = scope.attackerarmy[i].location;
+					}else{
+					scope.defenderarmy[i].startinglocation = scope.defenderarmy[i].location;				
+					}
+				});		 		
+    		
+    		}	
+    	}
     		
     	function setCanMove(topOrBottomTurn){
     		

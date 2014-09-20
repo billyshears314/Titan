@@ -36,7 +36,7 @@ var numberOfConnections = 0;
 
 var playerNumbers = [];
 
-var phase = "Movement";
+var phase = "Setup";
 
 var turn = 1;
 
@@ -56,9 +56,7 @@ var nextNumber = 1;
 
 	numberOfConnections++;
 	socket.emit('getBoardModel', titan.getBoard());	
-	console.log("TEST");
    socket.emit('getPlayerNumber', nextNumber);
-   console.log("HMMM");
    var turn_phase = {"turn": turn, "phase": phase};	
    socket.emit('getPhase', turn_phase);
 	nextNumber++;
@@ -81,7 +79,6 @@ var nextNumber = 1;
 		});
 		
 	socket.on('updateWaitingArmies', function(data){
-		console.log(JSON.stringify(data));
 		socket.broadcast.emit('getWaitingArmies', data);
 		});		
 		

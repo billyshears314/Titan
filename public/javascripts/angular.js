@@ -97,6 +97,51 @@ $scope.updateWaitingArmies = function(data){
 	
 	};
 	
+$scope.hasNoCreaturesLeft = function(){
+
+	var hasNoCreatureLeft = 'nobody';
+	var count = 0;	
+	
+		
+		for(var i=0; i<$scope.attackerarmy.length; i++){
+			
+			if(attackerarmy[i].location===-1){
+				count++
+				}
+			
+			}		
+			
+			if(count===attackerarmy.length){
+				
+				hasNoCreatureLeft = 'attacker';
+					
+				}
+			
+		count = 0;	 	
+	 	
+	 	for(var i=0; i<$scope.defenderarmy.length; i++){
+			
+			if(defenderarmy[i].location!==-1){
+				
+				hasCreatureLeft = 'defender';
+				
+				}
+			
+			}	
+			
+			if(count===defenderarmy.length){
+		
+				if(hasNoCreatureLeft==='attacker'){
+					hasNoCreatureLeft = 'mutual';					
+					}				
+				else{
+					hasNoCreatureLeft = 'defender';
+					}
+			}			
+	
+		return hasNoCreatureLeft;	
+	
+	}	
 	
 	//Used to deal with flipping the creatures
 	$scope.$watch('space', function(newVal, oldVal){

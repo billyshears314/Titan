@@ -23,10 +23,41 @@
     		});
     	
     	$('#confirm_button').click(function(){
+    		
+    		var scope = angular.element($("#board")).scope();
+    		
+	//	if(whosMove === "Your Action"){    		
+    		
+    		if(scope.phase==='Retaliation'){
+	
+				//Move this to end of retaliation phase later
+				console.log("BEFORE!!!!");
+				var hasNoCreaturesLeft =scope.hasNoCreaturesLeft();	
+				console.log("CREATURES LEFT: " + hasNoCreaturesLeft);
+				if(hasNoCreaturesLeft!=='nobody'){
+					alert(hasNoCreaturesLeft);
+				}	
+		
+			}
+			
+			if(scope.phase==='Setup'){
+				
+				
+				//Hide buttons to add creatures after setup phase
+				for(var i=1; i<7; i++){
+		
+				$('#defenderStartingSpot'+i).hide();
+				$('#attackerStartingSpot'+i).hide();
+				}		
+				
+			}
 
-		//	if(whosMove === "Your Action"){
-				socket.emit('confirm', {});				
+	
+				socket.emit('confirm', {});	
+							
 		//		}
+		
+		
 
 		});
 	
@@ -157,8 +188,8 @@
 		$('#creature'+id).css('border-width', '0px');
 		$('#creature'+canAttackID).css('border-width', '0px');
 
-		var index = creaturesThatCanAttack.indexOf(id);	
-			creaturesThatCanAttack.splice(index, 1);	
+		var index = targetsSelected.indexOf(id);	
+			targetsSelected.splice(index, 1);	
 		}
 		console.log("Creatures that can attack: " + JSON.stringify(creaturesThatCanAttack));
 		console.log("TARGETS SELECTED: " + JSON.stringify(targetsSelected));

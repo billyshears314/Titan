@@ -36,7 +36,7 @@ var numberOfConnections = 0;
 
 var playerNumbers = [];
 
-var phase = "Movement";
+var phase = "Setup";
 
 var turn = 1;
 
@@ -79,7 +79,6 @@ var nextNumber = 1;
 		});
 		
 	socket.on('updateWaitingArmies', function(data){
-		console.log(JSON.stringify(data));
 		socket.broadcast.emit('getWaitingArmies', data);
 		});		
 		
@@ -103,13 +102,16 @@ var nextNumber = 1;
 });
 
 function goToNextPhase(playerNumber){
-	if(phase=="Movement"){
+	if(phase==="Setup"){
+		phase = "Movement";		
+		}		
+	else if(phase==="Movement"){
 		phase = "Attack";		
 		}	
-	else if(phase=="Attack"){
+	else if(phase==="Attack"){
 		phase = "Retaliation";		
 		}
-	else if(phase=="Retaliation"){
+	else if(phase==="Retaliation"){
 		phase = "Movement";		
 		turn++;
 	}
