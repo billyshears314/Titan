@@ -89,11 +89,7 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
 				}
 				if($scope.defenderarmy[i].name!='empty'){	
 					$('#defendWaitingImage'+i).show();
-					$('#defendWaitingImage'+i).css('-webkit-transform', 'rotate(180deg)');
-					$('#defendWaitingImage'+i).css('-moz-transform', 'rotate(180deg)');    
-					$('#defendWaitingImage'+i).css('-ms-transform', 'rotate(180deg)');		
-					$('#defendWaitingImage'+i).css('-o-transform', 'rotate(180deg)');	
-					$('#defendWaitingImage'+i).css('transform', 'rotate(180deg)');
+					CSS.rotate('defendWaitingImage'+i, 180);
 				}
 		
 			}
@@ -149,20 +145,12 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
     for(var i=0; i<27; i++){
     	
     	if(newVal[i].player=="1"){
-			$('#creature'+i).css('-webkit-transform', 'rotate(180deg)');
-			$('#creature'+i).css('-moz-transform', 'rotate(180deg)');    
-			$('#creature'+i).css('-ms-transform', 'rotate(180deg)');		
-			$('#creature'+i).css('-o-transform', 'rotate(180deg)');	
-			$('#creature'+i).css('transform', 'rotate(180deg)');
+    		CSS.rotate('creature'+i, 180);
     		console.log("Image Flipped: " + i);
     	}
     	else{
     		//Must be a more efficient way than unflipping everything back all the time
-    		$('#creature'+i).css('-webkit-transform', 'rotate(0deg)');
-			$('#creature'+i).css('-moz-transform', 'rotate(0deg)');    
-			$('#creature'+i).css('-ms-transform', 'rotate(0deg)');		
-			$('#creature'+i).css('-o-transform', 'rotate(0deg)');	
-			$('#creature'+i).css('transform', 'rotate(0deg)');
+    		CSS.rotate('creature'+i, 0);
     	}
     	
 		//console.log(JSON.stringify(space));    	

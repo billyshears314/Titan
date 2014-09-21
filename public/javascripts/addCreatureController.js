@@ -30,7 +30,7 @@ $(function() {
 	$('.addCharacterImage').click(function(){
 	
 		if(lastSelectedID!=="empty"){
-			$('#'+lastSelectedID).css('border-width', '0px');	
+			CSS.defaultOutline(lastSelectedID);
 		}
 		
 		$(this).css('border-width', '3px');
@@ -53,11 +53,7 @@ $(function() {
 		   if(attackerOrDefender==="defender"){
 				scope.defenderarmy[selectionSpot].name = creatureName;
 		      $('#defendWaitingImage'+selectionSpot).show();
-		      $('#defendWaitingImage'+selectionSpot).css('-webkit-transform', 'rotate(180deg)');
-				$('#defendWaitingImage'+selectionSpot).css('-moz-transform', 'rotate(180deg)');    
-				$('#defendWaitingImage'+selectionSpot).css('-ms-transform', 'rotate(180deg)');		
-				$('#defendWaitingImage'+selectionSpot).css('-o-transform', 'rotate(180deg)');	
-				$('#defendWaitingImage'+selectionSpot).css('transform', 'rotate(180deg)');
+		      CSS.rotate('defendWaitingImage'+selectionSpot, 180);
 			}
 		   socket.emit('updateWaitingArmies', {data: {"attackwaiting": scope.attackerarmy, "defendwaiting": scope.defenderarmy}});
 		});

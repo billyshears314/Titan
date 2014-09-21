@@ -32,23 +32,23 @@ function explore(space, movement, hasMovedOne){
 	return totalSpaces;	
 }
 	
-	function getAvailableSpaces(scope){
+function getAvailableSpaces(scope){
 
-		if(attackerOrDefender==="defend"){
-				var availableSpaces = explore(0, creatures[scope.defenderarmy[selectionSpot].name].skillFactor-1, false);
-				availableSpaces = explore(1, creatures[scope.defenderarmy[selectionSpot].name].skillFactor-1, false);
-				availableSpaces = explore(2, creatures[scope.defenderarmy[selectionSpot].name].skillFactor-1, false);
-		}
-		else{
-				var availableSpaces = explore(23, creatures[scope.attackerarmy[selectionSpot].name].skillFactor-1, false);
-				availableSpaces = explore(24, creatures[scope.attackerarmy[selectionSpot].name].skillFactor-1, false);
-				availableSpaces = explore(25, creatures[scope.attackerarmy[selectionSpot].name].skillFactor-1, false);
-				availableSpaces = explore(26, creatures[scope.attackerarmy[selectionSpot].name].skillFactor-1, false);	
-			}		
-
-		return availableSpaces;	
-	
+	if(attackerOrDefender==="defend"){
+			var availableSpaces = explore(0, creatures[scope.defenderarmy[selectionSpot].name].skillFactor-1, false);
+			availableSpaces = explore(1, creatures[scope.defenderarmy[selectionSpot].name].skillFactor-1, false);
+			availableSpaces = explore(2, creatures[scope.defenderarmy[selectionSpot].name].skillFactor-1, false);
 	}
+	else{
+			var availableSpaces = explore(23, creatures[scope.attackerarmy[selectionSpot].name].skillFactor-1, false);
+			availableSpaces = explore(24, creatures[scope.attackerarmy[selectionSpot].name].skillFactor-1, false);
+			availableSpaces = explore(25, creatures[scope.attackerarmy[selectionSpot].name].skillFactor-1, false);
+			availableSpaces = explore(26, creatures[scope.attackerarmy[selectionSpot].name].skillFactor-1, false);	
+		}		
+
+	return availableSpaces;	
+
+}
 	
 	
 $('#reset').click(function(){

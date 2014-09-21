@@ -135,18 +135,10 @@ function updateWhosMove(){
 function flipArrow(){
 	
 if(topOrBottom==="bottom"){
-	$('#arrow').css('-webkit-transform', 'rotate(90deg)');
-	$('#arrow').css('-moz-transform', 'rotate(90deg)');    
-	$('#arrow').css('-ms-transform', 'rotate(90deg)');		
-	$('#arrow').css('-o-transform', 'rotate(90deg)');	
-	$('#arrow').css('transform', 'rotate(90deg)');
+	CSS.rotate('arrow', 90);
 }
 else{
-	$('#arrow').css('-webkit-transform', 'rotate(270deg)');
-	$('#arrow').css('-moz-transform', 'rotate(270deg)');    
-	$('#arrow').css('-ms-transform', 'rotate(270deg)');		
-	$('#arrow').css('-o-transform', 'rotate(270deg)');	
-	$('#arrow').css('transform', 'rotate(270deg)');
+	CSS.rotate('arrow', 270);
 	}
 
 }

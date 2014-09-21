@@ -4,14 +4,17 @@ socket.on('getPlayerNumber', function(data){
  	
  	var scope = angular.element($("#board")).scope();
  	
-if(scope.playerNumber === -1){
+	if(scope.playerNumber === -1){
+		
 		scope.$apply(function(){
-   	scope.playerNumber = data;
- 			})
-	}    	
-     determineWhosMove();
- 		  updateWhosMove();
- 	});
+   		scope.playerNumber = data;
+ 		});
+ 		
+	}   
+	 	
+   determineWhosMove();
+	updateWhosMove();
+});
  	
 socket.on('getPhase', function(data){
  		
@@ -132,13 +135,10 @@ function updateWhosMove(){
 function flipArrow(){
 	
 if(topOrBottom==="bottom"){
-	$('#arrow').css('-webkit-transform', 'rotate(90deg)');
-	$('#arrow').css('-moz-transform', 'rotate(90deg)');    
-	$('#arrow').css('-ms-transform', 'rotate(90deg)');		
-	$('#arrow').css('-o-transform', 'rotate(90deg)');	
-	$('#arrow').css('transform', 'rotate(90deg)');
+	CSS.rotate('arrow', 90);
 }
 else{
+	CSS.rotate('arrow', 270);
 	$('#arrow').css('-webkit-transform', 'rotate(270deg)');
 	$('#arrow').css('-moz-transform', 'rotate(270deg)');    
 	$('#arrow').css('-ms-transform', 'rotate(270deg)');		

@@ -30,7 +30,6 @@ $('#confirm_button').click(function(){
  	if(scope.phase==='Retaliation'){
 
 		//Move this to end of retaliation phase later
-		console.log("BEFORE!!!!");
 		var hasNoCreaturesLeft =scope.hasNoCreaturesLeft();	
 		console.log("CREATURES LEFT: " + hasNoCreaturesLeft);
 		if(hasNoCreaturesLeft!=='nobody'){
@@ -56,7 +55,6 @@ $('#confirm_button').click(function(){
 	
 });
 
-
 function highlightWhoCanAttack(){
 
 	console.log("HIGHLIGHT WHO CAN ATTACK");
@@ -75,11 +73,7 @@ function highlightWhoCanAttack(){
 		creaturesThatCanAttack = canAttack;
 		console.log("Creatures that can attack: " + JSON.stringify(creaturesThatCanAttack));
 		
-		for(var i=0; i<canAttack.length; i++){
-			$('#creature'+canAttack[i]).css('border-style', 'solid');
-			$('#creature'+canAttack[i]).css('border-width', '2px');
-			$('#creature'+canAttack[i]).css('color', '#00FF00');
-		}
+		CSS.outlineWhichCanAttack(creaturesThatCanAttack);
 	
 }
 
@@ -148,6 +142,7 @@ $(".creatureOnTarget").click(function(){
 	//Case: Select Friendly Creature
 	if(creaturesThatCanAttack.indexOf(id)>=0){
 		canAttackID = id;
+
 		$(this).css('border-width', '4px');
 		
 		console.log(JSON.stringify("Creatures that can attack: " + creaturesThatCanAttack));
@@ -163,11 +158,8 @@ $(".creatureOnTarget").click(function(){
 							
 			}	
 			
-		if(isTarget===true){
-			$('#creature'+scope.space[id].neighbors[i]).css('border-style', 'solid');	
-			$('#creature'+scope.space[id].neighbors[i]).css('border-width', '2px');		
-			$('#creature'+scope.space[id].neighbors[i]).css('color', '#FF0000');		
-						
+			if(isTarget===true){
+				CSS.outlineTarget(scope, id, i);			
 			}	
 		
 		}
@@ -178,8 +170,8 @@ $(".creatureOnTarget").click(function(){
 	console.log('attackerID: ' + canAttackID);
 	console.log('defenderID: ' + id);
 	socket.emit('battle', {data: scope.space, 'attackerID': canAttackID, 'defenderID': id});
-	$('#creature'+id).css('border-width', '0px');
-	$('#creature'+canAttackID).css('border-width', '0px');
+	CSS.defaultOutline('creature'+id);
+	CSS.defaultOutline('creature'+canAttackID);
 
 	var index = targetsSelected.indexOf(id);	
 		targetsSelected.splice(index, 1);	

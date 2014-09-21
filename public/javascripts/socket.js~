@@ -10,63 +10,57 @@
  socket.on('getBoardModel', function(data){
  	var scope = angular.element($("#board")).scope();
    scope.updateModel(data.data);
- });
+});
  
  socket.on('getWaitingArmies', function(data){
 	var scope = angular.element($("#board")).scope();
 	scope.updateWaitingArmies(data.data);    	
- 	});
+});
  		
- 	socket.on('getConcede', function(data){
- 		alert("Your opponent has resigned");
- 		
- 		});
+socket.on('getConcede', function(data){
+	alert("Your opponent has resigned");
+});
  	
- 	$('#confirm_button').click(function(){
+$('#confirm_button').click(function(){
  		
- 		var scope = angular.element($("#board")).scope();
+ 	var scope = angular.element($("#board")).scope();
  		
 //	if(whosMove === "Your Action"){    		
  		
- 		if(scope.phase==='Retaliation'){
+ 	if(scope.phase==='Retaliation'){
 
-			//Move this to end of retaliation phase later
-			console.log("BEFORE!!!!");
-			var hasNoCreaturesLeft =scope.hasNoCreaturesLeft();	
-			console.log("CREATURES LEFT: " + hasNoCreaturesLeft);
-			if(hasNoCreaturesLeft!=='nobody'){
-				alert(hasNoCreaturesLeft);
-			}	
-	
-		}
+		//Move this to end of retaliation phase later
+		var hasNoCreaturesLeft =scope.hasNoCreaturesLeft();	
+		console.log("CREATURES LEFT: " + hasNoCreaturesLeft);
+		if(hasNoCreaturesLeft!=='nobody'){
+			alert(hasNoCreaturesLeft);
+		}	
+
+	}
 		
-		if(scope.phase==='Setup'){
-			
-			
-			//Hide buttons to add creatures after setup phase
-			for(var i=0; i<7; i++){
-	
-			$('#defenderStartingSpot'+i).hide();
-			$('#attackerStartingSpot'+i).hide();
-			}		
-			
-		}
+	if(scope.phase==='Setup'){
+				
+		//Hide buttons to add creatures after setup phase
+		for(var i=0; i<7; i++){
 
-			socket.emit('confirm', {});	
+		$('#defenderStartingSpot'+i).hide();
+		$('#attackerStartingSpot'+i).hide();
+		}		
+		
+	}
+
+	socket.emit('confirm', {});	
 						
 	//		}
 	
-	});
-
+});
 
 function highlightWhoCanAttack(){
 
 	console.log("HIGHLIGHT WHO CAN ATTACK");
 
 	var scope = angular.element($("#board")).scope();		
-	
 	var turn = isAttackerOrDefenderTurn(scope);		
-	
 	var canAttack = [];
 	
 	 if(turn==="attacker"){
@@ -79,13 +73,9 @@ function highlightWhoCanAttack(){
 		creaturesThatCanAttack = canAttack;
 		console.log("Creatures that can attack: " + JSON.stringify(creaturesThatCanAttack));
 		
-		for(var i=0; i<canAttack.length; i++){
-			$('#creature'+canAttack[i]).css('border-style', 'solid');
-			$('#creature'+canAttack[i]).css('border-width', '2px');
-			$('#creature'+canAttack[i]).css('color', '#00FF00');
-		}
+		CSS.outlineWhichCanAttack(creaturesThatCanAttack);
 	
-	}
+}
 
 //Remove army creatures which don't exist (i.e. location=-1)		
 function getWhoCanAttackFilter(attacker, defender){
@@ -152,6 +142,7 @@ $(".creatureOnTarget").click(function(){
 	//Case: Select Friendly Creature
 	if(creaturesThatCanAttack.indexOf(id)>=0){
 		canAttackID = id;
+
 		$(this).css('border-width', '4px');
 		
 		console.log(JSON.stringify("Creatures that can attack: " + creaturesThatCanAttack));
@@ -167,11 +158,8 @@ $(".creatureOnTarget").click(function(){
 							
 			}	
 			
-		if(isTarget===true){
-			$('#creature'+scope.space[id].neighbors[i]).css('border-style', 'solid');	
-			$('#creature'+scope.space[id].neighbors[i]).css('border-width', '2px');		
-			$('#creature'+scope.space[id].neighbors[i]).css('color', '#FF0000');		
-						
+			if(isTarget===true){
+				CSS.outlineTarget(id, i);			
 			}	
 		
 		}
@@ -182,8 +170,8 @@ $(".creatureOnTarget").click(function(){
 	console.log('attackerID: ' + canAttackID);
 	console.log('defenderID: ' + id);
 	socket.emit('battle', {data: scope.space, 'attackerID': canAttackID, 'defenderID': id});
-	$('#creature'+id).css('border-width', '0px');
-	$('#creature'+canAttackID).css('border-width', '0px');
+	CSS.defaultOutline('creature'+id);
+	CSS.defaultOutline('creature'+canAttackID);
 
 	var index = targetsSelected.indexOf(id);	
 		targetsSelected.splice(index, 1);	
