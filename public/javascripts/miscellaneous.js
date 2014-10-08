@@ -54,7 +54,8 @@ $('#add_creature_btn').click(function(){
 			$('#defendWaitingImage'+selectionSpot).css('transform', 'rotate(180deg)');
         }
            var socket = io.connect('http://localhost:8080');
-        socket.emit('updateWaitingArmies', {data: {"attackwaiting": scope.attackwaiting, "defendwaiting": scope.defendwaiting}});
+         
+        socket.emit('updateWaitingArmies', {data: {"attackerarmy": scope.attackwaiting, "defenderarmy": scope.defendwaiting}});
     });
 
 });

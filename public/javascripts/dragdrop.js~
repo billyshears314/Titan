@@ -1,4 +1,3 @@
-var space_number = -1;
 var drop_space_number = -1;
 var drag_space_number = -1;
 

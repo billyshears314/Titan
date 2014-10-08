@@ -1,3 +1,5 @@
+var deadButCanRetaliate = [];
+
 function creaturesOnBoardController($scope) {
 
 	 $scope.playerNumber = -1;
@@ -66,7 +68,6 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
 			
 			for(var i=0; i<27; i++){	
 				if($scope.space[i].name!='empty'){	
-					console.log($scope.space[i].name);	
 					$('#creature'+i).show();
 				}
 			}
@@ -153,39 +154,12 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
     		CSS.rotate('creature'+i, 0);
     	}
     	
-		//console.log(JSON.stringify(space));    	
-    	
     	if(newVal[i].name!='empty'){
-    		
-		//	console.log('Before');
-		//	console.log('Blood: ' + newVal[i].blood);
-		//	console.log('Skill Power: ' + creatures[newVal[i].name].skillPower);
     		
     	/*TODO: Also must check if creature has retaliated yet, should be another field*/
 			if(newVal[i].blood>=creatures[newVal[i].name].skillPower){	   	
-		   	console.log("DEAD");	
-		   	console.log("I: " + i);
-		   	$scope.space[i].name='empty';
-		   	$scope.space[i].blood=0;
-		   	$scope.space[i].player='0';
-		   	var allegiance = $scope.space[i].army.allegiance;
-		   	$scope.space[i].army.allegiance='none';
-		   				   			
-   			if(allegiance==='defender'){
-   				$scope.defenderarmy[$scope.space[i].army.index].location = -1;
-   				$scope.defenderarmy[$scope.space[i].army.index].startinglocation = -1;
-   				$scope.defenderarmy[$scope.space[i].army.index].canMove = 0;
-   			}
-   			else if(allegiance==='attacker'){
-   				$scope.attackerarmy[$scope.space[i].army.index].location = -1;
-   				$scope.attackerarmy[$scope.space[i].army.index].startinglocation = -1;
-   				$scope.attackerarmy[$scope.space[i].army.index].canMove = 0;
-   			}		
-		   	else{
-					console.log("ERROR: allegiance wasn't defined");		   				
-		   	}
-		   	
-		   	$scope.space[i].army.index=-1;	
+
+				deadButCanRetaliate.push(i);
 		   }  		
     		else{
     			$('#creature'+i).show();
@@ -210,17 +184,17 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
  
    	for(var i=0; i<7; i++){
     	
-			if($scope.playerNumber===1){
+//			if($scope.playerNumber===1){
 				//	$('#creature'+newVal[i].location).draggable("disable");  
-			}   
-			else{ 	
+//			}   
+//			else{ 	
     			if(newVal[i].canMove===0){
-					//	$('#creature'+newVal[i].location).draggable("disable");    		
+						$('#creature'+newVal[i].location).draggable("disable");    		
     			}
     			else{
     				$('#creature'+newVal[i].location).draggable("enable"); 
     			}
-    		}
+ //   		}
     
    	 //End For Loop	
    	}
@@ -232,17 +206,17 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
  
    	for(var i=0; i<7; i++){
     	
-			if($scope.playerNumber===2){
-				$('#creature'+newVal[i].location).draggable("disable");   
-			}   
-			else{ 	
+//			if($scope.playerNumber===2){
+				//$('#creature'+newVal[i].location).draggable("disable");   
+//			}   
+//			else{ 	
 	    		if(newVal[i].canMove===0){
-					$('#creature'+newVal[i].location).draggable("disable");    		
+					$('#creature'+newVal[i].location).draggable("disable");  		
 	    		}
 	   	 	else{
 	    			$('#creature'+newVal[i].location).draggable("enable"); 
 	    		}
-    		}
+//    		}
     	
     	//End for Loop
     	}
@@ -250,4 +224,3 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
 	}, true);
 
 }
-

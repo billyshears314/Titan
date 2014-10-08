@@ -14,7 +14,8 @@
  
  socket.on('getWaitingArmies', function(data){
 	var scope = angular.element($("#board")).scope();
-	scope.updateWaitingArmies(data.data);    	
+	console.log(JSON.stringify(data));
+	scope.updateWaitingArmies(data);    	
 });
  		
 socket.on('getConcede', function(data){
@@ -43,8 +44,8 @@ $('#confirm_button').click(function(){
 		//Hide buttons to add creatures after setup phase
 		for(var i=0; i<7; i++){
 
-		$('#defenderStartingSpot'+i).hide();
-		$('#attackerStartingSpot'+i).hide();
+			$('#defenderStartingSpot'+i).hide();
+			$('#attackerStartingSpot'+i).hide();
 		}		
 		
 	}
@@ -166,15 +167,13 @@ $(".creatureOnTarget").click(function(){
 	
 	}//Case: Select Target Creature
 	else if(targetsSelected.indexOf(id)>=0){
-	console.log("ATTACKKK!!!");
-	console.log('attackerID: ' + canAttackID);
-	console.log('defenderID: ' + id);
-	socket.emit('battle', {data: scope.space, 'attackerID': canAttackID, 'defenderID': id});
-	CSS.defaultOutline('creature'+id);
-	CSS.defaultOutline('creature'+canAttackID);
+		socket.emit('battle', {data: scope.space, 'attackerID': canAttackID, 'defenderID': id});
+		CSS.defaultOutline('creature'+id);
+		CSS.defaultOutline('creature'+canAttackID);
 
 	var index = targetsSelected.indexOf(id);	
 		targetsSelected.splice(index, 1);	
+		
 	}
 	console.log("Creatures that can attack: " + JSON.stringify(creaturesThatCanAttack));
 	console.log("TARGETS SELECTED: " + JSON.stringify(targetsSelected));
@@ -201,6 +200,5 @@ function isAttackerOrDefenderTurn(scope){
 	return turn;			
 	
 }
-
 
 

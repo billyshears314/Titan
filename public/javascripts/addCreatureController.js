@@ -55,7 +55,8 @@ $(function() {
 		      $('#defendWaitingImage'+selectionSpot).show();
 		      CSS.rotate('defendWaitingImage'+selectionSpot, 180);
 			}
-		   socket.emit('updateWaitingArmies', {data: {"attackwaiting": scope.attackerarmy, "defendwaiting": scope.defenderarmy}});
+			console.log(JSON.stringify(scope.attackerarmy));
+		   socket.emit('updateWaitingArmies', {data: {"attackerarmy": scope.attackerarmy, "defenderarmy": scope.defenderarmy}});
 		});
 
 	});

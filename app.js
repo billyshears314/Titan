@@ -79,7 +79,7 @@ var nextNumber = 1;
 		});
 		
 	socket.on('updateWaitingArmies', function(data){
-		socket.broadcast.emit('getWaitingArmies', data);
+		socket.broadcast.emit('getWaitingArmies', data.data);
 		});		
 		
 	socket.on('confirm', function(data){

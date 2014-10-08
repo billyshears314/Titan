@@ -31,6 +31,14 @@ socket.on('getPhase', function(data){
 		flipArrow();  
 
    	scope.phase = data.phase;	
+
+		//This is so you can't drag creatures on to the board during the Setup phase
+		if(scope.phase==='Setup'){
+			$('.waitingImage').draggable({disabled:true});   	
+   	}
+   	else{
+   		$('.waitingImage').draggable({disabled:false});	
+   	}
   		scope.turn = Math.floor((data.turn+1)/2);
    
 	});
@@ -44,6 +52,7 @@ socket.on('getPhase', function(data){
 		setCanMoveToNone();
 	}
 	if(data.phase==='Movement'){
+		removeDeadCreatures();
 		setCanMove(topOrBottom);
 		setStartingLocationAsLocation();				
 	}				
@@ -139,11 +148,6 @@ if(topOrBottom==="bottom"){
 }
 else{
 	CSS.rotate('arrow', 270);
-	$('#arrow').css('-webkit-transform', 'rotate(270deg)');
-	$('#arrow').css('-moz-transform', 'rotate(270deg)');    
-	$('#arrow').css('-ms-transform', 'rotate(270deg)');		
-	$('#arrow').css('-o-transform', 'rotate(270deg)');	
-	$('#arrow').css('transform', 'rotate(270deg)');
 	}
 
 }
@@ -167,4 +171,46 @@ function refreshArmiesCanMove(){
 	
 function getTopOrBottom(turn){
 	return ((turn%2==0) ? "bottom" : "top");
+}
+
+function removeDeadCreatures(){
+
+	console.log("Remove Dead Creatures");
+
+	var scope = angular.element($("#board")).scope();	
+
+	for(var canAttackID=0; i<27; i++){
+
+		if(deadButCanRetaliate.indexOf(canAttackID)>=0){
+	
+			console.log("DEAD BUT CAN RETALIATE");
+
+			scope.$apply(function(){		
+			   scope.space[canAttackID].name='empty';
+			   scope.space[canAttackID].blood=0;
+			   scope.space[canAttackID].player='0';
+			   var allegiance = scope.space[canAttackID].army.allegiance;
+			   scope.space[canAttackID].army.allegiance='none';	 
+			
+			 	if(allegiance==='defender'){
+   				scope.defenderarmy[scope.space[canAttackID].army.index].location = -1;
+   				scope.defenderarmy[scope.space[canAttackID].army.index].startinglocation = -1;
+   				scope.defenderarmy[scope.space[canAttackID].army.index].canMove = 0;
+   			}
+   			else if(allegiance==='attacker'){
+   				scope.attackerarmy[scope.space[canAttackID].army.index].location = -1;
+   				scope.attackerarmy[scope.space[canAttackID].army.index].startinglocation = -1;
+   				scope.attackerarmy[scope.space[canAttackID].army.index].canMove = 0;
+   			}		
+		   	else{
+					console.log("ERROR: allegiance wasn't defined");		   				
+		   	}
+		   	
+		   	scope.space[canAttackID].army.index=-1;  
+			});		
+		
+		}
+		
+	}	
+
 }

@@ -33,7 +33,7 @@ var moveOrder = [];
      
       var socket = io.connect('http://localhost:8080'); 
     	socket.emit('updateBoard', {data: scope.space});
-    	socket.emit('updateWaitingArmies', {data: {"attackwaiting": scope.attackerarmy, "defendwaiting": scope.defenderarmy}});
+    	socket.emit('updateWaitingArmies', {data: {"attackerarmy": scope.attackerarmy, "defenderarmy": scope.defenderarmy}});
      
 	}
  });

@@ -1,3 +1,5 @@
+var deadButCanRetaliate = [];
+
 function creaturesOnBoardController($scope) {
 
 	 $scope.playerNumber = -1;
@@ -66,7 +68,6 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
 			
 			for(var i=0; i<27; i++){	
 				if($scope.space[i].name!='empty'){	
-					console.log($scope.space[i].name);	
 					$('#creature'+i).show();
 				}
 			}
@@ -90,11 +91,6 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
 				if($scope.defenderarmy[i].name!='empty'){	
 					$('#defendWaitingImage'+i).show();
 					CSS.rotate('defendWaitingImage'+i, 180);
-					$('#defendWaitingImage'+i).css('-webkit-transform', 'rotate(180deg)');
-					$('#defendWaitingImage'+i).css('-moz-transform', 'rotate(180deg)');    
-					$('#defendWaitingImage'+i).css('-ms-transform', 'rotate(180deg)');		
-					$('#defendWaitingImage'+i).css('-o-transform', 'rotate(180deg)');	
-					$('#defendWaitingImage'+i).css('transform', 'rotate(180deg)');
 				}
 		
 			}
@@ -158,24 +154,18 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
     		CSS.rotate('creature'+i, 0);
     	}
     	
-		//console.log(JSON.stringify(space));    	
-    	
     	if(newVal[i].name!='empty'){
-    		
-		//	console.log('Before');
-		//	console.log('Blood: ' + newVal[i].blood);
-		//	console.log('Skill Power: ' + creatures[newVal[i].name].skillPower);
     		
     	/*TODO: Also must check if creature has retaliated yet, should be another field*/
 			if(newVal[i].blood>=creatures[newVal[i].name].skillPower){	   	
-		   	console.log("DEAD");	
-		   	console.log("I: " + i);
-		   	$scope.space[i].name='empty';
-		   	$scope.space[i].blood=0;
-		   	$scope.space[i].player='0';
-		   	var allegiance = $scope.space[i].army.allegiance;
-		   	$scope.space[i].army.allegiance='none';
-		   				   			
+
+				deadButCanRetaliate.push(i);
+		   //	$scope.space[i].name='empty';
+		   //	$scope.space[i].blood=0;
+		   //	$scope.space[i].player='0';
+		   //	var allegiance = $scope.space[i].army.allegiance;
+		   //	$scope.space[i].army.allegiance='none';
+		   	/*			   			
    			if(allegiance==='defender'){
    				$scope.defenderarmy[$scope.space[i].army.index].location = -1;
    				$scope.defenderarmy[$scope.space[i].army.index].startinglocation = -1;
@@ -190,7 +180,8 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
 					console.log("ERROR: allegiance wasn't defined");		   				
 		   	}
 		   	
-		   	$scope.space[i].army.index=-1;	
+		   	$scope.space[i].army.index=-1;
+		   	*/	
 		   }  		
     		else{
     			$('#creature'+i).show();
@@ -215,17 +206,17 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
  
    	for(var i=0; i<7; i++){
     	
-			if($scope.playerNumber===1){
+//			if($scope.playerNumber===1){
 				//	$('#creature'+newVal[i].location).draggable("disable");  
-			}   
-			else{ 	
+//			}   
+//			else{ 	
     			if(newVal[i].canMove===0){
-					//	$('#creature'+newVal[i].location).draggable("disable");    		
+						$('#creature'+newVal[i].location).draggable("disable");    		
     			}
     			else{
     				$('#creature'+newVal[i].location).draggable("enable"); 
     			}
-    		}
+ //   		}
     
    	 //End For Loop	
    	}
@@ -237,17 +228,17 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
  
    	for(var i=0; i<7; i++){
     	
-			if($scope.playerNumber===2){
-				$('#creature'+newVal[i].location).draggable("disable");   
-			}   
-			else{ 	
+//			if($scope.playerNumber===2){
+				//$('#creature'+newVal[i].location).draggable("disable");   
+//			}   
+//			else{ 	
 	    		if(newVal[i].canMove===0){
-					$('#creature'+newVal[i].location).draggable("disable");    		
+					$('#creature'+newVal[i].location).draggable("disable");  		
 	    		}
 	   	 	else{
 	    			$('#creature'+newVal[i].location).draggable("enable"); 
 	    		}
-    		}
+//    		}
     	
     	//End for Loop
     	}
@@ -255,4 +246,3 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
 	}, true);
 
 }
-

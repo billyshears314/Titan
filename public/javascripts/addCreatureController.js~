@@ -30,7 +30,7 @@ $(function() {
 	$('.addCharacterImage').click(function(){
 	
 		if(lastSelectedID!=="empty"){
-			$('#'+lastSelectedID).css('border-width', '0px');	
+			CSS.defaultOutline(lastSelectedID);
 		}
 		
 		$(this).css('border-width', '3px');
@@ -55,6 +55,7 @@ $(function() {
 		      $('#defendWaitingImage'+selectionSpot).show();
 		      CSS.rotate('defendWaitingImage'+selectionSpot, 180);
 			}
+			console.log(JSON.stringify(scope.attackerarmy));
 		   socket.emit('updateWaitingArmies', {data: {"attackwaiting": scope.attackerarmy, "defendwaiting": scope.defenderarmy}});
 		});
 

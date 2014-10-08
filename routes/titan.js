@@ -81,7 +81,7 @@ var attackTarget = function(data, attackerSpace, defenderSpace) {
 	for(var i=0; i<attacker_skillpower; i++){
 
 		var dieroll = Math.floor((Math.random() * 6) + 1);		
-			console.log(dieroll);
+
 		 if(dieroll>(defender_skillfactor - attacker_skillfactor)+3){
 		 	
 		 	bloodtotal++;

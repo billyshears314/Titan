@@ -19,7 +19,8 @@ function setSpaceAsEmpty(scope, id){
 
 function setArmyAsMoved(scope){
 	
-	if(attackerOrDefender==="attack"){	     	 	
+	if(attackerOrDefender==="attack"){
+		console.log("TEST");	     	 	
 		scope.attackerarmy[scope.space[drop_space_number].army.index].canMove = 0;  
 		scope.attackerarmy[scope.space[drop_space_number].army.index].location = drop_space_number;   	
 	}
