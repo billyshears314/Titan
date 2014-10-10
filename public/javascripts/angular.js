@@ -184,17 +184,17 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
  
    	for(var i=0; i<7; i++){
     	
-//			if($scope.playerNumber===1){
-				//	$('#creature'+newVal[i].location).draggable("disable");  
-//			}   
-//			else{ 	
+			if($scope.playerNumber===1){
+					$('#creature'+newVal[i].location).draggable("disable");  
+			}   
+			else{ 	
     			if(newVal[i].canMove===0){
 						$('#creature'+newVal[i].location).draggable("disable");    		
     			}
     			else{
     				$('#creature'+newVal[i].location).draggable("enable"); 
     			}
- //   		}
+    		}
     
    	 //End For Loop	
    	}
@@ -206,17 +206,17 @@ defenderarmy[6] = {"name": "empty", "startinglocation": -1, "canMove": 1, "locat
  
    	for(var i=0; i<7; i++){
     	
-//			if($scope.playerNumber===2){
-				//$('#creature'+newVal[i].location).draggable("disable");   
-//			}   
-//			else{ 	
+		if($scope.playerNumber===2){
+				$('#creature'+newVal[i].location).draggable("disable");   
+			}   
+			else{ 	
 	    		if(newVal[i].canMove===0){
 					$('#creature'+newVal[i].location).draggable("disable");  		
 	    		}
 	   	 	else{
 	    			$('#creature'+newVal[i].location).draggable("enable"); 
 	    		}
-//    		}
+    		}
     	
     	//End for Loop
     	}

@@ -30,7 +30,12 @@ app.use(express.static(__dirname + '/public'));
 
 titan.initializeModel();
 
-var io = require('socket.io').listen(app.listen(8080));
+var server = require('http').createServer(app),
+io = require('socket.io').listen(server);
+
+server.listen(process.env.PORT || 8080);
+
+//var io = require('socket.io').listen(app.listen(8080));
 
 var numberOfConnections = 0;
 
@@ -79,11 +84,15 @@ var nextNumber = 1;
 		});
 		
 	socket.on('updateWaitingArmies', function(data){
-		socket.broadcast.emit('getWaitingArmies', data);
+		socket.broadcast.emit('getWaitingArmies', data.data);
 		});		
 		
 	socket.on('confirm', function(data){
-			goToNextPhase(socket.playerNumber);
+			goToNextPhase();
+		});
+		
+	socket.on('setPhase', function(data){
+			setPhase(data.phase);
 		});
 		
 	socket.on('concede', function(data){		
@@ -101,7 +110,7 @@ var nextNumber = 1;
   }); 
 });
 
-function goToNextPhase(playerNumber){
+function goToNextPhase(){
 	if(phase==="Setup"){
 		phase = "Movement";		
 		}		
@@ -119,7 +128,18 @@ function goToNextPhase(playerNumber){
    var turn_phase = {"turn": turn, "phase": phase}	
 	
 	io.sockets.emit('getPhase', turn_phase);	
-	}
+}
+	
+function setPhase(newPhase){
+	phase = newPhase
+	console.log("ALEX");
+	turn++;		
+		
+	var turn_phase = {"turn": turn, "phase": phase}
+	
+	io.sockets.emit('getPhase', turn_phase);
+	
+}
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

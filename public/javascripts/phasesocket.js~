@@ -9,7 +9,7 @@ socket.on('getPlayerNumber', function(data){
 		scope.$apply(function(){
    		scope.playerNumber = data;
  		});
- 		
+
 	}   
 	 	
    determineWhosMove();
@@ -19,25 +19,28 @@ socket.on('getPlayerNumber', function(data){
 socket.on('getPhase', function(data){
  		
 	var scope = angular.element($("#board")).scope();	    		
-	  	
 	topOrBottom = getTopOrBottom(data.turn);			    	
 	    	
-	scope.$apply(function(){				
-	    		
- 		if(data.phase==='Movement'){
+	scope.$apply(function(){	
+
+		if(scope.phase==='Movement'){	
 			refreshArmiesCanMove(); 		
- 		}
+		}	
 		
 		flipArrow();  
-
    	scope.phase = data.phase;	
 
 		//This is so you can't drag creatures on to the board during the Setup phase
 		if(scope.phase==='Setup'){
 			$('.waitingImage').draggable({disabled:true});   	
    	}
-   	else{
-   		$('.waitingImage').draggable({disabled:false});	
+   	else{	 		
+	 		if(scope.playerNumber === 2){
+	 			$('.attackWaitingImage').draggable("enable");  
+	 		}
+	 		else{
+	 			$('.defendWaitingImage').draggable("enable");
+	 		}
    	}
   		scope.turn = Math.floor((data.turn+1)/2);
    
@@ -46,16 +49,20 @@ socket.on('getPhase', function(data){
  	determineWhosMove();
  	updateWhosMove();
  		
+ 	if(data.phase==='Movement'){
+		removeDeadCreatures();
+		setCanMove(topOrBottom);
+		setStartingLocationAsLocation();				
+	}
  		
  	if((data.phase==='Attack')||(data.phase==='Retaliation')){	    			
 		highlightWhoCanAttack();	
 		setCanMoveToNone();
 	}
-	if(data.phase==='Movement'){
-		removeDeadCreatures();
-		setCanMove(topOrBottom);
-		setStartingLocationAsLocation();				
-	}				
+	
+	if(getWhoCanAttackFilter(scope.attackerarmy, scope.defenderarmy).length===0){
+		socket.emit('setPhase', { phase: "Movement" });	
+	}
 		
  });
  		
@@ -179,7 +186,7 @@ function removeDeadCreatures(){
 
 	var scope = angular.element($("#board")).scope();	
 
-	for(var canAttackID=0; i<27; i++){
+	for(var canAttackID=0; canAttackID<27; canAttackID++){
 
 		if(deadButCanRetaliate.indexOf(canAttackID)>=0){
 	
