@@ -33,7 +33,7 @@ titan.initializeModel();
 var server = require('http').createServer(app),
 io = require('socket.io').listen(server);
 
-server.listen(process.env.PORT || 8080);
+server.listen(process.env.PORT || 5000);
 
 //var io = require('socket.io').listen(app.listen(8080));
 
