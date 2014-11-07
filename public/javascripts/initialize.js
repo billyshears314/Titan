@@ -8,4 +8,5 @@ $("img").error(function(){
 
 $( "#tabs" ).tabs();
 
-var socket = io.connect('http://lit-brushlands-5808.herokuapp.com:8080');
+//var socket = io.connect('http://lit-brushlands-5808.herokuapp.com:80');
+var socket = io.connect('http://localhost:8080');

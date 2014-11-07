@@ -27,13 +27,15 @@ app.use('/users', users);
 
 app.use(express.static(__dirname + '/public'));
 
-
 titan.initializeModel();
 
 //var server = require('http').createServer(app),
 //io = require('socket.io').listen(server);
 
 //server.listen(process.env.PORT || 3000);
+
+//var io = require('socket.io').listen(app.listen(8080));
+//var io = require('socket.io').listen(app);
 
 var io = require('socket.io').listen(app.listen(8080));
 
