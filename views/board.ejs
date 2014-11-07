@@ -139,6 +139,64 @@
 				<% } %>				
 				
 				</div>
+				
+				<div style="position:absolute;top:180px"">
+				
+					<i>Instructions currently being edited.  There are also some bugs in the code being worked on.</i>
+					<h2>Instructions</h2>								
+					
+					<p>This game is to represent a battle in the board game Titan.  In the actual game of Titan, battles are
+					just a subset of the entire game.  There is also a masterboard, but battles are complex enough for now
+					to program.</p>					
+					
+					<p>This game requires two browsers to be open up on this page, one for each player.  The server 
+					automatically assigns the first client as player 1 (the defender) and the second client as 
+					player 2 (the attacker).</p>
+				
+					<p>Game flow is somewhat similar to a baseball game, with 7 rounds or innings opposed to 9. 
+					Each round has two parts, a top and a bottom.  The top comes first and then the bottom, 
+					just like in baseball.  The top part is the defender's turn and the bottom part is the attacker's turn.  
+					Each top/bottom of a round or "inning" has three different phases: a movement phase, an attack phase,
+					and a retaliation phase.</p>
+					
+					<p>For example, if it is the top of the 3rd, player 1 (the defender) would decide to move it's pieces, by dragging
+					and dropping them.  Then player 1 will press "confirm." Then if player 2 (the attacker) has any creatures next to any defender creatures, the attacker 
+					will then attack them.  Then the defending creatures that are next to the attacking creatures will retaliate
+					by attacking them back (even if the defending creature has just died).</p>
+					
+					<p>To setup the game, one player, player 1 presses a "+" button, selects a creature and then presses "Add Creature."
+					Player 1 does this for both the defender (on the top) and the attacker (on the bottom).  After all  the creatures that are
+					in the battle have been added, player 1 then presses "Confirm" on the left hand side. </p> 
+					
+					<p>Now the game officially begins.</p>
+					
+					<h3>Order of Steps</h3>
+					<ul>
+						<li><strong>Movement Phase</strong></li>
+						<li>Drag Pieces on to steps (Press undo to reset location of last creature moved, press reset to put all of them back)</li>
+						<li>Press "confirm"</li>	
+						<li><strong>Attack Phase</strong></li>	
+						<li>If you have creatures next to opponent creatures, they should be highlighted in green.  Select one of them.  It should bolden, 
+						then select an opponent in red, a dice roll will be simulated, the resulting blood will be updated.</li>
+						<li>Press "confirm"</li>
+						<li><strong>Retaliation Phase</strong></li>
+						<li>Same as attack phase, but for the opposite player
+						<li>Press "confirm"</li>				
+					</ul>
+					
+				</div>
+				
+				<h3>How dice rolls work</h3>
+				
+				<p>You take the skill power which is the number in the lower left hand corner of the creature, this is the number of dice it rolls
+				when attacking and also the number of hit points it has for defending.  The lower right and number is the skill factor which determines
+				the speed of the creature when moving and also what numbers hit when you are attacking or being attacked.  For
+				example, a creature with a skill factor of 2 going against a creature with a skill factor of 2 will hit on 4's, 5's, and 6's.  
+				A creature with a skill factor of 3 going against a creature with a skill factor of 2 will hit on 3's, 4's, 5, and 6's.  
+				A creature with a skill factor of 4 going against a creature with a skill factor of 2 will hit on 2's, 3's, 4's, 5's, and 6's.
+				A creature with a skill factor of 2 going against a creature with a skill factor of 4 will hit only on 6's.  So it's better to have
+				a larger skill factor.</p>
+				<!--
 		
 					<div style="position:absolute;top:180px">
 					
@@ -173,11 +231,11 @@
 							</div>				
 						
 					</div>
-				
-				</div>
-				
-
+								
+				-->
 		
+				</div>
+
 			<!--board-->
 			</div>
 		<!--controller-->
