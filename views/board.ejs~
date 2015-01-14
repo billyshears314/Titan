@@ -139,7 +139,7 @@
 				<% } %>				
 				
 				</div>
-				<!--
+				
 				<div style="position:absolute;top:180px"">
 				
 					<i>Instructions currently being edited.  There are also some bugs in the code being worked on.</i>
@@ -196,7 +196,6 @@
 				A creature with a skill factor of 4 going against a creature with a skill factor of 2 will hit on 2's, 3's, 4's, 5's, and 6's.
 				A creature with a skill factor of 2 going against a creature with a skill factor of 4 will hit only on 6's.  So it's better to have
 				a larger skill factor.</p>
-				-->
 				<!--
 		
 					<div style="position:absolute;top:180px">
